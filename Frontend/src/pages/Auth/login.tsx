@@ -4,6 +4,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 
+import api from "@/api/axios";
+
 /**
  * Login Page
  *
@@ -43,23 +45,25 @@ export default function Login() {
 
     setLoading(true);
     try {
-      const res = await fetch("https://food-delivery-website-seven-theta.vercel.app/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ loginId, password }),
+      const res = await api.post("/auth/login", {
+        loginId,
+        password,
       });
-      const data = await res.json();
+      const data = res.data;
 
-      if (!res.ok || !data.success) {
-        toast.error(data.message || "Login failed. Please try again.");
-      } else {
+      if (data.success) {
         login(data.user, data.token);
         toast.success("Welcome back!");
         // Send user back to where they came from, or home
         navigate(from, { replace: true });
+      } else {
+        toast.error(data.message || "Login failed. Please try again.");
       }
-    } catch {
-      toast.error("Could not reach the server. Is the backend running?");
+    } catch (error: any) {
+      const errorMsg =
+        error.response?.data?.message ||
+        "Could not reach the server. Is the backend running?";
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }

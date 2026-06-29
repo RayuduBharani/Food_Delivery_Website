@@ -3,6 +3,8 @@ import { Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
+import api from "@/api/axios";
+
 /**
  * Signup Page — Using Shadcn tokens.
  */
@@ -37,21 +39,26 @@ export default function Signup() {
 
     setLoading(true);
     try {
-      const res = await fetch("https://food-delivery-website-seven-theta.vercel.app/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, email, phone, password, address }),
+      const res = await api.post("/auth/register", {
+        fullName,
+        email,
+        phone,
+        password,
+        address,
       });
-      const data = await res.json();
+      const data = res.data;
 
-      if (!res.ok || !data.success) {
-        toast.error(data.message || "Registration failed. Please try again.");
-      } else {
+      if (data.success) {
         toast.success("Account created! Please log in.");
         setTimeout(() => navigate("/login"), 1200);
+      } else {
+        toast.error(data.message || "Registration failed. Please try again.");
       }
-    } catch {
-      toast.error("Could not reach the server. Make sure the backend is running.");
+    } catch (error: any) {
+      const errorMsg =
+        error.response?.data?.message ||
+        "Could not reach the server. Make sure the backend is running.";
+      toast.error(errorMsg);
     } finally {
       setLoading(false);
     }
