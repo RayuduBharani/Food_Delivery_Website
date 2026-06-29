@@ -1,12 +1,11 @@
 /**
- * index.js — Legacy entry point.
+ * index.js — Backward-compatibility shim for local development.
  *
- * The app has been refactored to use server.js as the main entry point
- * and app.js for Express configuration. This file simply re-exports
- * server.js for backward compatibility.
+ * The real entry points are:
+ *   • Local dev  → server.js  (via `npm start` / `npm run dev`)
+ *   • Vercel     → api/index.js  (Vercel serverless function)
  *
- * Usage:
- *   npm run dev   → runs nodemon server.js
- *   npm start     → runs node server.js
+ * This file is kept only for tools that resolve "main" from package.json.
+ * Do NOT use this file directly.
  */
 require("./server");

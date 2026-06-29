@@ -1,25 +1,20 @@
 /**
- * server.js — Application entry point.
+ * server.js — Local development entry point.
  *
- * Loads environment variables, connects to MongoDB, then starts
- * the Express HTTP server. This is the file you run:
- *   node server.js   (production)
- *   nodemon server.js (development)
+ * This file is ONLY used when running the server locally:
+ *   node server.js      (production-like local)
+ *   nodemon server.js   (hot-reload development)
+ *
+ * On Vercel, this file is NEVER executed. Vercel uses api/index.js
+ * as the serverless function entry point instead.
+ *
+ * NOTE: dotenv and connectDB are already called inside app.js,
+ * so this file simply imports the configured app and starts listening.
  */
-require("dotenv").config();
-
 const app = require("./app");
-const connectDB = require("./config/db");
 
 const PORT = process.env.PORT || 8000;
 
-const startServer = async () => {
-  // Connect to MongoDB first — app.js is useless without a DB
-  await connectDB();
-
-  app.listen(PORT, () => {
-    console.log(`🚀 Server is running on http://localhost:${PORT}`);
-  });
-};
-
-startServer();
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+});
