@@ -54,6 +54,7 @@ export default function Signup() {
       } else {
         toast.error(data.message || "Registration failed. Please try again.");
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       const errorMsg =
         error.response?.data?.message ||

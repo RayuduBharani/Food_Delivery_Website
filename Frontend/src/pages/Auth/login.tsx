@@ -59,6 +59,7 @@ export default function Login() {
       } else {
         toast.error(data.message || "Login failed. Please try again.");
       }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       const errorMsg =
         error.response?.data?.message ||

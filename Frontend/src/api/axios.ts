@@ -9,7 +9,7 @@ import axios from "axios";
  * - Response interceptor provides consistent error handling
  */
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "https://food-delivery-website-seven-theta.vercel.app/api",
+  baseURL: import.meta.env.VITE_API_URL || "https://food-delivery-website-iz1y.onrender.com/api",
   timeout: 10000, // 10 seconds
   headers: {
     "Content-Type": "application/json",
