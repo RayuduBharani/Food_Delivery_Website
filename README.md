@@ -1,4 +1,4 @@
-# 🍕 FoodRush — Food Delivery Website
+# FoodRush — Food Delivery Website
 
 A full-stack food delivery web application inspired by Swiggy and Zomato. Built as a take-home project demonstrating modern full-stack engineering practices.
 
@@ -6,7 +6,24 @@ A full-stack food delivery web application inspired by Swiggy and Zomato. Built 
 
 ---
 
-## ✨ Features
+## Demo & Test Credentials
+
+The database includes pre-seeded user accounts for development and testing. You can use these credentials to sign in directly:
+
+### Admin User
+* **Email:** `admin@foodrush.in`
+* **Password:** `Admin@123`
+* **Role:** `admin` *(has access to the admin dashboard at `/admin` to manage orders, restaurants, and view statistics)*
+
+### Regular Customer
+* **Email:** `rayudubharani7288@gmail.com`
+* **Password:** `Bharani`
+* **Role:** `user` *(can browse restaurants, add items to cart, place orders, and track order history)*
+
+---
+
+
+## Features
 
 ### Core
 - 🍽️ Browse restaurants with search and cuisine filters
@@ -47,7 +64,7 @@ A full-stack food delivery web application inspired by Swiggy and Zomato. Built 
 
 ---
 
-## 📁 Folder Structure
+## Folder Structure
 
 ```
 Food Delivery Website/
@@ -122,64 +139,110 @@ Food Delivery Website/
 
 ---
 
-## 🚀 Installation
 
-### Prerequisites
-- Node.js ≥ 18
-- MongoDB (local or Atlas)
+## ⚙️ Environment Variables Setup
 
-### 1. Clone the repository
-```bash
-git clone <repo-url>
-cd "Food Delivery Website"
-```
+Before running the application, you must configure the environment variables for both the backend and frontend.
 
-### 2. Backend setup
-```bash
-cd Backend
-npm install
+### 1. Backend Configuration (`Backend/.env`)
+Create a `.env` file in the `Backend` directory (you can copy the `.env.example` file) and configure the following variables:
 
-# Create .env from template
-cp .env.example .env
-# Edit .env with your values
+| Variable | Description | Recommended/Default Value |
+| :--- | :--- | :--- |
+| `PORT` | The port on which the Express backend server will run. | `8000` |
+| `MONGODB_URI` | The connection string for your MongoDB instance. | `mongodb://127.0.0.1:27017/FoodDeliveryWebsite` *(local)* or a MongoDB Atlas URI |
+| `JWT_SECRET` | Secret key used to sign and verify JSON Web Tokens (JWT) for authentication. | *Any secure random string* (e.g., `your_super_secret_jwt_key_here`) |
+| `CLIENT_URL` | The URL of the frontend client. Used to configure CORS on the backend. | `http://localhost:5173` *(or the port your Vite server starts on)* |
 
-# Seed the database
-npm run seed
+### 2. Frontend Configuration (`Frontend/.env`)
+Create a `.env` file in the `Frontend` directory (you can copy the `.env.example` file) and configure the following variables:
 
-# Start the server
-npm run dev
-```
+| Variable | Description | Recommended/Default Value |
+| :--- | :--- | :--- |
+| `VITE_API_URL` | The full base URL of the backend API endpoints. | `http://localhost:8000/api` |
 
-### 3. Frontend setup
-```bash
-cd Frontend
-npm install
-
-# Start the dev server
-npm run dev
-```
-
-### 4. Open the app
-Navigate to `http://localhost:5173` in your browser.
+> [!IMPORTANT]
+> **Port Matching Rule:** Make sure the `CLIENT_URL` in your Backend's `.env` matches the exact URL where your Frontend is running (usually `http://localhost:5173` or `http://localhost:5175`). Likewise, ensure the port in the Frontend's `VITE_API_URL` matches the backend `PORT` variable.
 
 ---
 
-## ⚙️ Environment Variables
+## Download & Local Run Guide
 
-### Backend (`Backend/.env`)
+Follow these steps to download, install dependencies, seed the database, and start the application locally:
 
-| Variable       | Description                  | Default                                      |
-|----------------|------------------------------|----------------------------------------------|
-| `PORT`         | Server port                  | `8000`                                       |
-| `MONGODB_URI`  | MongoDB connection string    | `mongodb://127.0.0.1:27017/FoodDeliveryWebsite` |
-| `JWT_SECRET`   | Secret for JWT signing       | *(required)*                                 |
-| `CLIENT_URL`   | Frontend URL (for CORS)      | `http://localhost:5173`                      |
+### 📋 Prerequisites
+Make sure you have the following installed on your machine:
+* [Node.js](https://nodejs.org/) (Version ≥ 18 recommended)
+* [MongoDB](https://www.mongodb.com/try/download/community) running locally, or a remote [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) database.
 
-### Frontend (`Frontend/.env`)
+---
 
-| Variable        | Description     | Default                         |
-|-----------------|-----------------|----------------------------------|
-| `VITE_API_URL`  | Backend API URL | `http://localhost:8000/api`      |
+### Step-by-Step Installation
+
+#### 1. Clone or Download the Project
+Clone the repository or download the project files to your local directory:
+```bash
+git clone <repository-url>
+cd "Food Delivery Website"
+```
+
+#### 2. Backend Setup & Run
+Open a terminal in the root of the project and navigate to the `Backend` folder:
+```bash
+# Navigate to the Backend folder
+cd Backend
+
+# Install backend dependencies
+npm install
+
+# Create the environment file from the template
+cp .env.example .env
+```
+Open `Backend/.env` in your code editor and update the variables (especially `MONGODB_URI` and `JWT_SECRET`).
+
+##### Seed the Database:
+Run the seed script to wipe the existing records (for development) and populate the database with default restaurants, menu items, the admin account, and a test user account:
+```bash
+npm run seed
+```
+
+##### Start the Backend Server:
+Start the backend development server (uses `nodemon` for auto-reloading upon file modifications):
+```bash
+npm run dev
+```
+The backend server will start running at `http://localhost:8000` (or the custom `PORT` you configured).
+
+---
+
+#### 3. Frontend Setup & Run
+Open a **new terminal** and navigate to the `Frontend` folder:
+```bash
+# Navigate to the Frontend folder from the root directory
+cd Frontend
+
+# Install frontend dependencies
+npm install
+
+# Create the environment file from the template
+cp .env.example .env
+```
+Open `Frontend/.env` in your editor and configure `VITE_API_URL` to point to your backend API server (normally `http://localhost:8000/api`).
+
+##### Start the Frontend Dev Server:
+Run the Vite development server:
+```bash
+npm run dev
+```
+Vite will start the application and provide a local URL, typically `http://localhost:5173`. Open this URL in your web browser.
+
+---
+
+#### 4. Open and Verify the Application
+1. Open your browser and navigate to `http://localhost:5173` (or the URL outputted by Vite).
+2. Click on **Login** in the navigation bar.
+3. Sign in using the **Admin Credentials** (`admin@foodrush.in` / `Admin@123`) to access the dashboard and view sales charts and manage restaurants.
+4. Sign in using the **User Credentials** (`user@foodrush.in` / `User@123`) to add dishes to the cart and place mock orders.
 
 ---
 
@@ -208,7 +271,7 @@ Navigate to `http://localhost:5173` in your browser.
 
 ---
 
-## 🌐 Deployment
+## Deployment
 
 ### Frontend → Vercel
 1. Connect your GitHub repo to Vercel
@@ -244,12 +307,12 @@ Navigate to `http://localhost:5173` in your browser.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Rayudu Bharani**
 
 ---
 
-## 📄 License
+## License
 
 ISC
