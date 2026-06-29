@@ -32,9 +32,9 @@ export default function Footer() {
           <div>
             <h4 className="mb-3 text-sm font-semibold text-foreground/80">Contact</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>📧 support@foodrush.in</li>
-              <li>📞 +91 98765 43210</li>
-              <li>📍 Bangalore, India</li>
+              <li>📧 rayudubharani7288@gmail.com</li>
+              <li>📞 +91 000000000</li>
+              <li>📍 India, India</li>
             </ul>
           </div>
 
