@@ -23,7 +23,7 @@ const app = express();
 app.use(express.json()); // Parse JSON request bodies
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "*",
+    origin: "https://food-delivery-website-seven-theta.vercel.app" || "*",
     credentials: true,
   })
 );
