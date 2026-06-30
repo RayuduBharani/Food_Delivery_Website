@@ -316,3 +316,44 @@ Vite will start the application and provide a local URL, typically `http://local
 ## License
 
 ISC
+
+---
+
+## Complete API Endpoints (Latest)
+
+Base URL (local): `http://localhost:8000`
+
+### Health
+- `GET /`
+
+### Auth
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+
+### Restaurants
+- `GET /api/restaurants`
+- `GET /api/restaurants/:id`
+- `GET /api/restaurants/:id/menu`
+
+### Orders
+- `POST /api/orders`
+- `GET /api/orders`
+- `GET /api/orders/:id`
+- `PATCH /api/orders/:id/status`
+
+### Admin
+- `GET /api/admin/stats`
+- `GET /api/admin/orders`
+- `PATCH /api/admin/orders/:id/status`
+- `GET /api/admin/restaurants`
+- `POST /api/admin/restaurants`
+- `PATCH /api/admin/restaurants/:id`
+- `DELETE /api/admin/restaurants/:id`
+- `GET /api/admin/restaurants/:id/menu`
+- `POST /api/admin/restaurants/:id/menu`
+- `PATCH /api/admin/menu/:id`
+- `DELETE /api/admin/menu/:id`
+- `GET /api/admin/users`
+
+### Seed (not an API route)
+- `npm run seed` from `Backend/`
